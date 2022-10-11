@@ -43,6 +43,7 @@
 ![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/API%20Key.png)
 
 - Подсоединение к таблицам:
+- 
 '''py 
 import gspread
 import numpy as np
