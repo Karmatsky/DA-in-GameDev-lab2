@@ -65,6 +65,7 @@ while i <= len(mon):
         print(tempInf)
 ```
 Вывод:
+
 ![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod.png)
 
 - Подключение таблицы к Unity:
@@ -163,6 +164,7 @@ while i <= len(mon):
         print(tempInf)
 ```
 Вывод в таблицу:
+
 ![Image Alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod2.png)
 
 ## Задание 3 Самостоятельно разработать сценарий воспроизведения звукового сопровождения в Unity в зависимости от изменения считанных данных в задании 2
