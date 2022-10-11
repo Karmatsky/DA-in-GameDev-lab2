@@ -64,7 +64,7 @@ while i <= len(mon):
         sh.sheet1.update(('C' + str(i)), str(tempInf))
         print(tempInf)
 ```
-Вывод:
+Вывод: 
 
 ![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod.png)
 
@@ -169,11 +169,48 @@ while i <= len(mon):
 
 ## Задание 3 Самостоятельно разработать сценарий воспроизведения звукового сопровождения в Unity в зависимости от изменения считанных данных в задании 2
 
+Ход работы:
+- Сначала надо изменить диапазон данных в коде, чтобы они смогли подойти под диапазон данных loss, после надо изменить количество колонок
 
+Изменение диапозона и количества колонок:
+```cs
+void Update()
+{
+    if(dataSet["Mon_" + i.ToString()] <= 195 & starusStart == false & i != dataSet.Count) // Изменение диапозона
+    {
+        StartCoroutine(PlaySelectAudioGood());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+    if(dataSet["Mon_" + i.ToString()] > 195 & dataSet["Mon_" + i.ToString()] < 500 & starusStart == false & i != dataSet.Count) // Изменение диапозона
+    {
+        StartCoroutine(PlaySelectAudioNormal());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+    if(dataSet["Mon_" + i.ToString()] >= 500 & starusStart == false & i != dataSet.Count) // Изменение диапозона
+    {
+        StartCoroutine(PlaySelectAudioBad());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+}
+IEnumerator GoogleSheets()
+{
+    UnityWebRequest curentResp = UnityWebRequest.Get("https://sheets.googleapis.com/v4/spreadheets/1_I7x6IKv5cC7dommC_Hou-bKlmvt8k_8ZynVumB-1V0");
+    yield return curentResp.SendWebRequest();
+    string rawResp = curentResp.downloadHandler.text;
+    var rawJson = JSON.Parse(rawResp);
+    foreach(var itemRawJson in rawJson["values"])
+    {
+        var parseJson = JSON.Parse(itemRawJson.ToString());
+        var selectRow = parseJson[0].AsStringlist;
+        dataSet.Add(("Mon_" + selectRow[0]), float.Parse(selectRow[1]); // Изменение кол-ва колонок
+    }
+}
+```
+Вывод в консоль: 
+![Image Alt] (https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod3.png)
 
 ## Выводы
-
-Абзац умных слов о том, что было сделано и что было узнано.
+В ходе данной лабораторной работы я выяснил как можно подключить Google-таблицу к коду, как записывать в нее значения. Также что эту таблицу можно связать с Unity.
 
 | Plugin | README |
 | ------ | ------ |
