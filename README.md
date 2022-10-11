@@ -44,7 +44,7 @@
 
 - Подсоединение к таблицам:
 - 
-'''py 
+''' 
 import gspread
 import numpy as np
 gs = gspread.service_account(filename='unitydatascience-364307-56bcea742b1.json')
@@ -64,7 +64,7 @@ while i <= len(mon):
         sh.sheet1.update(('B' + str(i)), str(price[i-1]))
         sh.sheet1.update(('C' + str(i)), str(tempInf))
         print(tempInf)
-  '''
+ ыpy'''
 
 
 ## Задание 2 Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
