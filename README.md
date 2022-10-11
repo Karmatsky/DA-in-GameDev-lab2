@@ -43,7 +43,6 @@
 ![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/API%20Key.png)
 
 - Подсоединение к таблицам:
-- 
 ```py
 import gspread
 import numpy as np
@@ -65,10 +64,106 @@ while i <= len(mon):
         sh.sheet1.update(('C' + str(i)), str(tempInf))
         print(tempInf)
 ```
+Вывод:
+![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod.png)
+
+- Подключение таблицы к Unity:
+```cs
+void Update()
+{
+    if(dataSet["Mon_" + i.ToString()] <= 10 & starusStart == false & i != dataSet.Count)
+    {
+        StartCoroutine(PlaySelectAudioGood());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+    if(dataSet["Mon_" + i.ToString()] > 10 & dataSet["Mon_" + i.ToString()] < 100 & starusStart == false & i != dataSet.Count)
+    {
+        StartCoroutine(PlaySelectAudioNormal());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+    if(dataSet["Mon_" + i.ToString()] >= 10 & starusStart == false & i != dataSet.Count)
+    {
+        StartCoroutine(PlaySelectAudioBad());
+        Debug.Log(dataSet["Mon_" + i.ToString()]);
+    }
+}
+IEnumerator GoogleSheets()
+{
+    UnityWebRequest curentResp = UnityWebRequest.Get("https://sheets.googleapis.com/v4/spreadheets/1_I7x6IKv5cC7dommC_Hou-bKlmvt8k_8ZynVumB-1V0");
+    yield return curentResp.SendWebRequest();
+    string rawResp = curentResp.downloadHandler.text;
+    var rawJson = JSON.Parse(rawResp);
+    foreach(var itemRawJson in rawJson["values"])
+    {
+        var parseJson = JSON.Parse(itemRawJson.ToString());
+        var selectRow = parseJson[0].AsStringlist;
+        dataSet.Add(("Mon_" + selectRow[0]), float.Parse(selectRow[2]);
+    }
+}
+IEnumerator PlaySelectAudioGood()
+{
+    starusStart = true;
+    selectAudio = GetComponent<AudioSource>();
+    selectAudio.clip = goodSpeak;
+    selectAudio.Play();
+    yield return new WaitForSeconds(3);
+    starusStart = false;
+    i++;
+}
+IEnumerator PlaySelectAudioNormal()
+{
+    starusStart = true;
+    selectAudio = GetComponent<AudioSource>();
+    selectAudio.clip = normalSpeak;
+    selectAudio.Play();
+}
+```
 
 ## Задание 2 Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
+Ход работы:
+- Создание loss в цикле, после вывод в таблицу:
+```py
+def optimize(a,b,x,y):
+    num = len(x)
+    prediction = model(a,b,x)
+    da = (1.0/num) * ((prediction -y)*x).sum()
+    db = (1.0/num) * ((prediction -y).sum())
+    a = a - Lr*da
+    b = b - Lr*db
+    return a, b
 
+def iterate(a,b,x,y,times):
+    for i in range(times):
+        a,b = optimizel(a,b,x,y)
+    return a,b
 
+a = np.random.rand(1)
+b = np.random.rand(1)
+Lr = 0.000001
+
+gc = gspread.service_account(filename='unitydatasciense-364307-S6bcea74a2b1.json')
+sh = gc.open('UnitySheets')
+price = np.random.randint(2000, 10000, 11)
+mon = list(range(1, 11))
+i = 0
+while i <= len(mon):
+    i += 1
+    if i == 0:
+        continue
+    else:
+        a,b = iterate(a,b,x,y,100)
+        prediction=model(a,b,x)
+        loss = loss_function(a, b, x, y)
+        tempInf = loss
+        tempInf = str(tempInf)
+        tempInf = tempInf.replace('.',',')
+        sh.sheet1.update(("A’ + str(i)), str(i))
+        sh.sheeti.update(("B’ + str(i)), str(tempInf))
+
+        print(tempInf)
+```
+Вывод в таблицу:
+![Image Alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod2.png)
 
 ## Задание 3 Самостоятельно разработать сценарий воспроизведения звукового сопровождения в Unity в зависимости от изменения считанных данных в задании 2
 
