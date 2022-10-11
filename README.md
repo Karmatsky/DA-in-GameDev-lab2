@@ -166,7 +166,7 @@ while i <= len(mon):
 ```
 Вывод в таблицу:
 
-![Image Alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod2.png)
+![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod2.png)
 
 ## Задание 3 Самостоятельно разработать сценарий воспроизведения звукового сопровождения в Unity в зависимости от изменения считанных данных в задании 2
 
@@ -209,7 +209,7 @@ IEnumerator GoogleSheets()
 ```
 Вывод в консоль: 
 
-![Image alt] (https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod3.png)
+![Image alt](https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod3.png)
 
 ## Выводы
 В ходе данной лабораторной работы я выяснил как можно подключить Google-таблицу к коду, как записывать в нее значения. Также что эту таблицу можно связать с Unity.
