@@ -119,6 +119,7 @@ IEnumerator PlaySelectAudioNormal()
     selectAudio.Play();
 }
 ```
+Вывод в консоль: [!Image alt] (https://raw.githubusercontent.com/Karmatsky/DA-in-GameDev-lab2/main/Content/Vivod3.png)
 
 ## Задание 2 Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
 Ход работы:
